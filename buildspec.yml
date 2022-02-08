@@ -1,11 +1,14 @@
 version: 0.2
+    
+    
 phases:
-  build:
+  install:
     commands:
-      - echo Build started on `date`
-      - echo Compiling the Go code...
-      - go build ./hello.go
-      - make -f Makefile
-artifacts:
-  files:
-    - hello
+      - echo Entered the install phase...
+      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      - apt-get update
+      - apt-get -y install nfs-common awscli jq dos2unix
+      - dos2unix s3download.txt
+      - cat s3download.txt
+      - . ./s3download.txt
+      - mkdir -p $efs_mount_path
